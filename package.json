@@ -23,8 +23,7 @@
   },
   "homepage": "https://github.com/tangshuang/tyshemo-extends#readme",
   "peerDependencies": {
-    "tyshemo": "^7.0.0",
-    "ts-fns": "^6.4.3"
+    "tyshemo": "^7.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -37,7 +36,9 @@
     "gulp": "^4.0.1",
     "gulp-babel": "^8.0.0",
     "jest": "^25.5.4",
-    "ts-fns": "^6.4.3",
-    "tyshemo": "^7.0.0"
+    "tyshemo": "^7.0.2"
+  },
+  "dependencies": {
+    "ts-fns": "^6.4.4"
   }
 }
