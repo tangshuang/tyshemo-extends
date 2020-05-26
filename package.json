@@ -1,0 +1,43 @@
+{
+  "name": "tyshemo-extends",
+  "version": "1.0.0",
+  "description": "Tyshemo extends.",
+  "main": "index.js",
+  "scripts": {
+    "build": "node .build/gulpfile.js",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tangshuang/tyshemo-extends.git"
+  },
+  "keywords": [
+    "tyshemo",
+    "parser",
+    "mocker"
+  ],
+  "author": "tangshuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tangshuang/tyshemo-extends/issues"
+  },
+  "homepage": "https://github.com/tangshuang/tyshemo-extends#readme",
+  "peerDependencies": {
+    "tyshemo": "^7.0.0",
+    "ts-fns": "^6.4.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "@babel/runtime": "^7.9.6",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^24.9.0",
+    "gulp": "^4.0.1",
+    "gulp-babel": "^8.0.0",
+    "jest": "^25.5.4",
+    "ts-fns": "^6.4.3",
+    "tyshemo": "^7.0.0"
+  }
+}
