@@ -70,4 +70,9 @@ describe('Parser', () => {
     const keys = Object.keys(comments)
     expect(keys.length).toBe(5)
   })
+  test('parse a string', () => {
+    const type = new Parser().parse('string')
+    expect(() => type.assert('xxx')).not.toThrowError()
+    expect(() => type.assert(111)).toThrowError()
+  })
 })

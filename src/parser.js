@@ -191,10 +191,15 @@ export class Parser {
       return pattern
     }
 
+    const target = isObject(description) ? { ...description } : isArray(description) ? [...description] : description
+
     let parser = this
-    const target = { ...description }
-    const { __def__ } = target
-    delete target.__def__
+    let __def__
+
+    if (isObject(target)) {
+      __def__ = target.__def__
+      delete target.__def__
+    }
 
     if (__def__) {
       __def__.forEach(({ name, def, origin }) => {
@@ -241,9 +246,11 @@ export class Parser {
         return value
       }
     }
-    const pattern = map(target, build)
+
+    const pattern = isObject(target) ? map(target, build) : build(target)
     const type = Ty.create(pattern)
     type.__comments__ = comments
+
     return type
   }
   describe(dict, options = {}) {
