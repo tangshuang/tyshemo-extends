@@ -436,10 +436,6 @@ export class Parser {
     }
   }
 
-  load(url) {
-    return fetch(url).then(res => res.json()).then(json => this.parse(json))
-  }
-
   static defaultTypes = {
     string: String,
     string8: String8,
