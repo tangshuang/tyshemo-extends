@@ -253,6 +253,7 @@ export class Parser {
 
     return type
   }
+
   describe(dict, options = {}) {
     const __def__ = []
     const { arrayStyle } = options
@@ -433,6 +434,10 @@ export class Parser {
     else {
       return description
     }
+  }
+
+  load(url) {
+    return fetch(url).then(res => res.json()).then(json => this.parse(json))
   }
 
   static defaultTypes = {

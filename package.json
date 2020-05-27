@@ -36,9 +36,10 @@
     "gulp": "^4.0.1",
     "gulp-babel": "^8.0.0",
     "jest": "^25.5.4",
-    "tyshemo": "^7.0.2"
+    "tyshemo": "^7.0.5"
   },
   "dependencies": {
+    "scopex": "^1.1.1",
     "ts-fns": "^6.4.4"
   }
 }
