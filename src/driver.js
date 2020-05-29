@@ -35,8 +35,8 @@ export class Driver {
   model(json) {
     const driver = this
     class DriveModel extends Model {
-      schema(Schema) {
-        return new Schema(map(json, def => map(def, (exp, key) => {
+      schema() {
+        return map(json, def => map(def, (exp, key) => {
           if (inArray(key, [
             'compute',
             'required',
@@ -77,7 +77,7 @@ export class Driver {
           else {
             return exp
           }
-        })))
+        }))
       }
     }
 
