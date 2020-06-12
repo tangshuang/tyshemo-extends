@@ -39,12 +39,12 @@ import {
   String128,
 } from 'tyshemo'
 
-export class Mocker {
+export class TypeMocker {
   constructor(loaders) {
     this.init(loaders)
   }
   init(loaders = []) {
-    this.loaders = [...loaders, ...Mocker.defaultLoaders]
+    this.loaders = [...loaders, ...TypeMocker.defaultLoaders]
   }
 
   define(target, loader) {
@@ -175,7 +175,7 @@ export class Mocker {
   }
 }
 
-Mocker.defaultLoaders = [
+TypeMocker.defaultLoaders = [
   [String, function() {
     const length = parseInt(Math.random() * 200, 10)
     return createRandomString(length)
@@ -329,4 +329,4 @@ function create(target, loaders) {
   return target
 }
 
-export default Mocker
+export default TypeMocker

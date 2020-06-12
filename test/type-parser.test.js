@@ -1,4 +1,4 @@
-import { Parser } from '../src/parser.js'
+import TypeParser from '../src/type-parser.js'
 
 describe('Parser', () => {
   test('parse', () => {
@@ -24,7 +24,7 @@ describe('Parser', () => {
         neck: 'boolean',
       },
     }
-    const type = new Parser().parse(def)
+    const type = new TypeParser().parse(def)
     const target = {
       name: 'tomy',
       age: 10,
@@ -65,13 +65,13 @@ describe('Parser', () => {
         age: 'number',
       },
     }
-    const type = new Parser().parse(def)
+    const type = new TypeParser().parse(def)
     const comments = type.__comments__
     const keys = Object.keys(comments)
     expect(keys.length).toBe(5)
   })
   test('parse a string', () => {
-    const type = new Parser().parse('string')
+    const type = new TypeParser().parse('string')
     expect(() => type.assert('xxx')).not.toThrowError()
     expect(() => type.assert(111)).toThrowError()
   })

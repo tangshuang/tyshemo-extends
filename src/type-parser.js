@@ -42,13 +42,13 @@ import {
   Model
 } from 'tyshemo'
 
-export class Parser {
+export class TypeParser {
   constructor(types) {
     this.init(types)
   }
 
   init(types = {}) {
-    this.types = { ...Parser.defaultTypes, ...types }
+    this.types = { ...TypeParser.defaultTypes, ...types }
   }
 
   define(text, target) {
@@ -205,7 +205,7 @@ export class Parser {
       __def__.forEach(({ name, def, origin }) => {
         const type = origin ? def : parser.parse(def)
         types = { ...types, [name]: type }
-        parser = new Parser(types)
+        parser = new TypeParser(types)
       })
     }
 
@@ -469,4 +469,4 @@ export class Parser {
   }
 }
 
-export default Parser
+export default TypeParser

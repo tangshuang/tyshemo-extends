@@ -1,5 +1,5 @@
 import { Dict, ifexist, equal, determine, Positive } from 'tyshemo'
-import Mocker from '../src/mocker.js'
+import TypeMocker from '../src/type-mocker.js'
 
 describe('Mocker', () => {
   test('mock', () => {
@@ -10,7 +10,7 @@ describe('Mocker', () => {
       sex: equal('M'),
       haul: determine(data => data.sex === 'M' ? Positive : 0),
     })
-    const mocker = new Mocker()
+    const mocker = new TypeMocker()
     const data = mocker.mock(type)
     expect(data.haul > 0).toBe(true)
   })
