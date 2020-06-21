@@ -37,6 +37,7 @@ import {
   String128,
   ifexist,
   shouldnotmatch,
+  nullable,
   equal,
   match,
   Type,
@@ -97,6 +98,7 @@ export class TypeParser {
     let types = this.types
 
     const rules = {
+      '&': nullable,
       '?': ifexist,
       '=': equal,
       '!': shouldnotmatch,
@@ -105,7 +107,7 @@ export class TypeParser {
       const exp = []
 
       const checkRule = () => {
-        let firstChar = text.charAt(0)
+        const firstChar = text.charAt(0)
         if (rules[firstChar]) {
           exp.push(rules[firstChar])
           text = text.substr(1)

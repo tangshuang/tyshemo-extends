@@ -76,14 +76,15 @@ The grammar is very easy:
 
 ### Rule Expression
 
-Currently only supports for 4 rules:
+Currently only supports for 5 rules:
 
-- ifexist: `?` at the first letter of expression
-- equal: `=` at the first letter
-- shouldnotmatch: `!` at the first letter
+- ifexist: `?` at the first letter of expression, `"?string"`
+- nullable: `&` at the first letter of expression, `"&string"`
+- equal: `=` at the first letter, `"='it is a dog'"`
+- shouldnotmatch: `!` at the first letter, `"!string"`
 - match: `,` to link several expression, for example `"string,numeric"` means the property should must be a string and must be a numeric
 
-Almostly, `?` and `!` will not use together; `?` and `!` come before `=`.
+Almostly, `?` `&` and `!` will not use together; `?` and `!` come before `=`.
 
 *The priority of Type Expression is higher than Rule Expression. So when you use `,` to conbime to expression, they will be treated as types firstly.*
 
@@ -98,6 +99,7 @@ TypeParser.defaultTypes = {
   boolean: Boolean,
   null: Null,
   undefined: Undefined,
+  none: None,
   symbol: Symbol,
   function: Function,
   array: Array,
@@ -118,8 +120,6 @@ TypeParser.defaultTypes = {
   regexp: RegExp,
 }
 ```
-
-You can learn how to modify type text in [TypeParser](parser.md?id=custom-types-text).
 
 ### What does `__def__` mean?
 
