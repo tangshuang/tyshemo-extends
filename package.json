@@ -4,7 +4,7 @@
   "description": "Tyshemo x.",
   "main": "index.js",
   "scripts": {
-    "build": "node .build/gulpfile.js",
+    "build": "node build/gulpfile.js",
     "test": "jest"
   },
   "repository": {
@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/tangshuang/tyshemo-x#readme",
   "peerDependencies": {
-    "tyshemo": "^7.0.2"
+    "tyshemo": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -36,7 +36,7 @@
     "gulp": "^4.0.1",
     "gulp-babel": "^8.0.0",
     "jest": "^25.5.4",
-    "tyshemo": "^7.2.0"
+    "tyshemo": "^8.1.0"
   },
   "dependencies": {
     "scopex": "^1.1.1",

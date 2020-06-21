@@ -23,6 +23,7 @@ import {
   Rule,
   Null,
   Undefined,
+  None,
   Numeric,
   Int,
   Float,
@@ -207,6 +208,9 @@ TypeMocker.defaultLoaders = [
     return null
   }],
   [Undefined, function() {}],
+  [None, function() {
+    return [null][parseInt(Math.random() * 100, 10) % 2]
+  }],
   [Symbol, function() {
     return Symbol()
   }],

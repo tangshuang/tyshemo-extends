@@ -1,23 +1,16 @@
 import ModelParser from '../src/model-parser.js'
+import json from './model.json'
 
 describe('ModelParser', () => {
   test('parse', () => {
-    const json = {
-      name: {
-        default: 'tomy',
-        type: 'string',
-        required: 'age > 10',
-      },
-      age: {
-        default: 10,
-        type: 'number',
-      },
-    }
-
     const parser = new ModelParser()
     const Model = parser.parse(json)
+
+    let errorCount = 0
     class SomeModel extends Model {
-      onError() {}
+      onError() {
+        errorCount ++
+      }
     }
     const model = new SomeModel()
 
@@ -25,10 +18,13 @@ describe('ModelParser', () => {
     expect(model.age).toBe(10)
 
     model.age = '0'
-    expect(model.age).toBe(10)
+    expect(model.age).toBe('0')
+    expect(errorCount).toBe(1)
 
     expect(model.$views.name.required).toBe(false)
     model.age = 11
     expect(model.$views.name.required).toBe(true)
+
+    expect(model.getWeight()).toBe(55)
   })
 })
