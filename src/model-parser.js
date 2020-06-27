@@ -10,6 +10,7 @@ import {
   isFunction,
   isArray,
   inObject,
+  isInstanceOf,
 } from 'ts-fns'
 
 export class ModelParser {
@@ -18,7 +19,13 @@ export class ModelParser {
   }
 
   init(types = {}) {
+    this._defs = []
     this._typeParser = new TypeParser(types)
+  }
+
+  define(text, target) {
+    this._defs.push([text, target])
+    return this
   }
 
   /**
@@ -101,6 +108,11 @@ export class ModelParser {
       return [method, params]
     }
 
+    const parseDef = (text) => {
+      const item = parser._defs.find(item => item[0] === text)
+      return item
+    }
+
     class ParsedModel extends Model {
       state() {
         return clone(state)
@@ -114,8 +126,40 @@ export class ModelParser {
             const [_key, _params] = parseAttr(attr)
             const [key, params, exp] = isFunction(handle) ? handle(_key, _params, _exp, 'schema') : [_key, _params, _exp]
 
+            if (/^<.+?>$/.test(key)) {
+              const name = key.substring(1, key.length - 1)
+
+              if (isInstanceOf(exp, Model)) {
+                meta[name] = exp
+                return
+              }
+
+              if (isString(exp)) {
+                const sub = parseDef(exp)
+                if (!isInstanceOf(sub, Model)) {
+                  return
+                }
+                meta[name] = sub
+                return
+              }
+
+              if (exp && !isArray(exp) && typeof exp === 'object') {
+                const sub = parser.parse(exp, handle)
+                meta[name] = sub
+                return
+              }
+
+              return
+            }
+
             if (!isString(exp)) {
               meta[key] = exp
+              return
+            }
+
+            const def = parseDef(exp)
+            if (def) {
+              meta[key] = def
               return
             }
 

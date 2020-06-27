@@ -98,6 +98,23 @@ And, in computed expression, you should use `''` to wrapper a normal string. For
 }
 ```
 
+**sub models**
+
+To parse sub-models, you can use a `<>` to wrapper the meta:
+
+```json
+{
+  "<submodel>": { // this meta named `submodel` will be parsed by current parser.
+    "schema": {
+      "name": {
+        "default": "",
+        "type": "string"
+      }
+    }
+  }
+}
+```
+
 **handle**
 
 `parse` method receive the second parameter `handle` function.
@@ -124,4 +141,17 @@ const handle = function(key, params, exp, type) {
 
   return [key, params, exp]
 }
+```
+
+**define**
+
+In some case, you want to define some context before parse, you can use define method:
+
+```js
+parser.define('SomeModel', SomeModel)
+parser.parse({
+  schema: {
+    '<some>': 'SomeModel', // this will be parsed to `some: SomeModel`
+  }
+})
 ```

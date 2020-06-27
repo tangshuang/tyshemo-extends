@@ -41,7 +41,7 @@ import {
   equal,
   match,
   Type,
-  Model
+  Model,
 } from 'tyshemo'
 
 export class TypeParser {
