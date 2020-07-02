@@ -4,7 +4,7 @@
   "description": "Tyshemo x.",
   "main": "index.js",
   "scripts": {
-    "build": "node build/gulpfile.js",
+    "build": "node build/gulpfile.js && webpack --config=build/webpack.config.js",
     "test": "jest"
   },
   "repository": {
@@ -30,9 +30,12 @@
     "@babel/runtime": "^7.9.6",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^24.9.0",
+    "babel-loader": "^8.1.0",
     "gulp": "^4.0.1",
     "gulp-babel": "^8.0.0",
-    "jest": "^25.5.4"
+    "jest": "^25.5.4",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.12"
   },
   "dependencies": {
     "scopex": "^1.1.1",
