@@ -102,7 +102,7 @@ export class ModelParser {
       }
 
       const s = m || ''
-      const none = undefined
+      const none = void 0
       const params = s.split(',').map(item => item.trim() || none)
 
       return [method, params]
