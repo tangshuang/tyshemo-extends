@@ -75,4 +75,40 @@ describe('Parser', () => {
     expect(() => type.assert('xxx')).not.toThrowError()
     expect(() => type.assert(111)).toThrowError()
   })
+  test('selfreference', () => {
+    const type = new TypeParser().parse({
+      __def__: [
+        {
+          name: 'Some',
+          def: {
+            name: 'string',
+            children: '?__self__[]',
+          },
+        }
+      ],
+      some: 'Some',
+    })
+
+    expect(() => type.assert({
+      some: {
+        name: 'a',
+        children: null,
+      },
+    })).toThrowError()
+    expect(() => type.assert({
+      some: {
+        name: 'a',
+        children: [
+          { name: 'b' },
+          { name: 'c', children: [] },
+          {
+            name: 'c',
+            children: [
+              { name: 'd' }
+            ],
+          },
+        ]
+      },
+    })).not.toThrowError()
+  })
 })

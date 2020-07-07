@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "node build/gulpfile.js && webpack --config=build/webpack.config.js",
-    "test": "jest"
+    "test": "jest --verbose"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,6 @@
   "dependencies": {
     "scopex": "^1.1.1",
     "ts-fns": "^6.4.4",
-    "tyshemo": "^8.3.0"
+    "tyshemo": "^8.3.2"
   }
 }

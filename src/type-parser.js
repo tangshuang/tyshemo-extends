@@ -210,8 +210,9 @@ export class TypeParser {
         const replaceSelf = (target, selfReference) => {
           if (isObject(target) || isArray(target)) {
             each(target, (value, key) => {
-              target[key] = replaceSelf(value)
+              target[key] = replaceSelf(value, selfReference)
             })
+            return target
           }
           else if (isString(target)) {
             if (target.indexOf('__self__') > -1) {
