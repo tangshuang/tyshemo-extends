@@ -10,12 +10,14 @@ import {
   makeKeyPath,
   map,
   createRandomString,
+  each,
 } from 'ts-fns'
 
 import {
   Type,
   Dict,
   List,
+  SelfReference,
   Enum,
   Tuple,
   Range,
@@ -59,6 +61,8 @@ export class TypeMocker {
   }
 
   mock(type) {
+    let count = 0
+
     const asyncs = []
     const makePath = (path, key) => path ? path + '.' + key : key
     const makeEnum = (pattern, path) => {
@@ -72,6 +76,11 @@ export class TypeMocker {
         const o = createValue(value, makePath(path, key))
         return o
       })
+      each(output, (value, key) => {
+        if (value === '__SELF__') {
+          delete output[key]
+        }
+      })
       return output
     }
     const makeArr = (pattern, path) => {
@@ -80,10 +89,21 @@ export class TypeMocker {
       for (let i = 0; i < length; i ++) {
         output.push(makeEnum(pattern, makePath(path, i)))
       }
-      return output
+      const res = output.filter(item => item !== '__SELF__')
+      return res
     }
     const createValue = (target, path = '') => {
       if (isInstanceOf(target, Type)) {
+        if (isInstanceOf(target, SelfReference)) {
+          if (count > 10) {
+            return '__SELF__'
+          }
+
+          target = target.init()
+          target = target.pattern
+          count ++
+        }
+
         const { pattern } = target
         if (isInstanceOf(target, Dict) || isInstanceOf(target, Tuple)) {
           return makeObj(pattern, path)

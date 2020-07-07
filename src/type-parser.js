@@ -287,7 +287,7 @@ export class TypeParser {
             const pattern = replaceSelf(def, type)
             const t = parser.parse(pattern)
             return t
-          })
+          }).init()
         }
         else {
           type = parser.parse(def)
