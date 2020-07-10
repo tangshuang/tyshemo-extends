@@ -207,47 +207,6 @@ export class TypeParser {
 
     if (__def__) {
       __def__.forEach(({ name, def, origin }) => {
-        const replaceSelf = (target, selfReference) => {
-          if (isObject(target) || isArray(target)) {
-            each(target, (value, key) => {
-              target[key] = replaceSelf(value, selfReference)
-            })
-            return target
-          }
-          else if (isString(target)) {
-            if (target.indexOf('__self__') > -1) {
-              const exp = []
-
-              const checkRule = () => {
-                const firstChar = target.charAt(0)
-                if (rules[firstChar]) {
-                  exp.push(rules[firstChar])
-                  target = target.substr(1)
-                  checkRule()
-                }
-              }
-              checkRule()
-
-              exp.reverse()
-
-              let pattern = target === '__self__[]' ? new List([selfReference])
-                : target === '__self__' ? selfReference
-                : target
-
-              exp.forEach((rule) => {
-                pattern = rule(pattern)
-              })
-
-              return pattern
-            }
-            else {
-              return target
-            }
-          }
-          else {
-            return target
-          }
-        }
         const hasSelf = (target) => {
           if (isObject(target)) {
             const keys = Object.keys(target)
@@ -284,7 +243,7 @@ export class TypeParser {
         }
         else if (hasSelf(def)) {
           type = new SelfReference((type) => {
-            const pattern = replaceSelf(def, type)
+            const parser = new TypeParser({ ...this.types, __self__: type })
             const t = parser.parse(pattern)
             return t
           }).init()
