@@ -41,7 +41,6 @@ import {
   equal,
   match,
   Type,
-  Model,
   SelfReference,
 } from 'tyshemo'
 
@@ -354,13 +353,6 @@ export class TypeParser {
       }
 
       let sign = value
-      if (isInheritedOf(value, Model)) {
-        const pattern = map(value, (node) => {
-          const { type } = node
-          return type
-        })
-        sign = build(pattern)
-      }
       if (isInstanceOf(value, Dict)) {
         sign = build(value.pattern)
       }
@@ -396,6 +388,10 @@ export class TypeParser {
         const desc = `{${kp}:${vp}}`
         sign = desc
       }
+      else if (isInheritedOf(value, SelfReference)) {
+        const type = value.fn('__self__')
+        sign = create(type)
+      }
       else if (isInstanceOf(value, Rule)) {
         const { name, pattern } = value
         if (name === 'ifexist') {
@@ -409,6 +405,10 @@ export class TypeParser {
         else if (name === 'shouldnotmatch') {
           const inner = create(pattern)
           sign = '!' + define(inner)
+        }
+        else if (name === 'nullable') {
+          const inner = create(pattern)
+          sign = '&' + define(inner)
         }
         else if (name === 'match') {
           const items = build(pattern)
@@ -456,13 +456,6 @@ export class TypeParser {
       const proto = getProto(type)
       if (proto) {
         return proto
-      }
-
-      if (isInheritedOf(type, Model)) {
-        type = map(type, (node) => {
-          const { type } = node
-          return type
-        })
       }
 
       const pattern = isInstanceOf(type, Type) || isInstanceOf(type, Rule) ? type.pattern : type
