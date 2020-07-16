@@ -1,4 +1,4 @@
-import { Dict, ifexist, equal, determine, Positive, SelfReference } from 'tyshemo'
+import { Dict, ifexist, equal, determine, Positive, SelfRef } from 'tyshemo'
 import TypeMocker from '../src/type-mocker.js'
 
 describe('Mocker', () => {
@@ -14,8 +14,8 @@ describe('Mocker', () => {
     const data = mocker.mock(type)
     expect(data.haul > 0).toBe(true)
   })
-  test('mock selfreference', () => {
-    const SomeType = new SelfReference((type) => new Dict({
+  test('mock selfref', () => {
+    const SomeType = new SelfRef((type) => new Dict({
       name: 'ok',
       children: [type],
     }))

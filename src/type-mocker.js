@@ -17,7 +17,7 @@ import {
   Type,
   Dict,
   List,
-  SelfReference,
+  SelfRef,
   Enum,
   Tuple,
   Range,
@@ -94,12 +94,11 @@ export class TypeMocker {
     }
     const createValue = (target, path = '') => {
       if (isInstanceOf(target, Type)) {
-        if (isInstanceOf(target, SelfReference)) {
+        if (isInstanceOf(target, SelfRef)) {
           if (count > 10) {
             return '__SELF__'
           }
 
-          target = target.init()
           target = target.pattern
           count ++
         }

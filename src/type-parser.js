@@ -41,7 +41,7 @@ import {
   equal,
   match,
   Type,
-  SelfReference,
+  SelfRef,
 } from 'tyshemo'
 
 export class TypeParser {
@@ -241,11 +241,11 @@ export class TypeParser {
           type = def
         }
         else if (hasSelf(def)) {
-          type = new SelfReference((type) => {
+          type = new SelfRef((type) => {
             const parser = new TypeParser({ ...this.types, __self__: type })
-            const t = parser.parse(pattern)
+            const t = parser.parse(def)
             return t
-          }).init()
+          })
         }
         else {
           type = parser.parse(def)
@@ -388,7 +388,7 @@ export class TypeParser {
         const desc = `{${kp}:${vp}}`
         sign = desc
       }
-      else if (isInheritedOf(value, SelfReference)) {
+      else if (isInheritedOf(value, SelfRef)) {
         const type = value.fn('__self__')
         sign = create(type)
       }

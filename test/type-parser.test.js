@@ -75,7 +75,7 @@ describe('Parser', () => {
     expect(() => type.assert('xxx')).not.toThrowError()
     expect(() => type.assert(111)).toThrowError()
   })
-  test('selfreference', () => {
+  test('selfref', () => {
     const type = new TypeParser().parse({
       __def__: [
         {
