@@ -1,4 +1,5 @@
 export * from 'tyshemo'
-export * from './type-parser.js'
-export * from './type-mocker.js'
-export * from './model-parser.js'
+export { TypeParser } from './type-parser.js'
+export { TypeMocker } from './type-mocker.js'
+export { ModelParser } from './model-parser.js'
+export { TraceModel } from './trace-model.js'

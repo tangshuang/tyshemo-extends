@@ -184,7 +184,7 @@ export class TypeMocker {
 
     if (asyncs.length) {
       asyncs.forEach(({ path, key, determine }) => {
-        const data = parse(output, path)
+        const data = !path ? output : parse(output, path)
         const type = determine(data)
         const v = createValue(type)
         assign(output, makeKeyPath([path, key]), v)

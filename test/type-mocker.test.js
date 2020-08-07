@@ -8,7 +8,7 @@ describe('Mocker', () => {
       age: Number,
       dog: ifexist(Number),
       sex: equal('M'),
-      haul: determine(data => data.sex === 'M' ? Positive : 0),
+      haul: determine(data => data.sex === 'M', Positive, 0),
     })
     const mocker = new TypeMocker()
     const data = mocker.mock(type)
