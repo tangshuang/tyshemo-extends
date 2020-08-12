@@ -176,7 +176,7 @@ export class TypeMocker {
         return makeArr(target, path)
       }
       else {
-        return create.call(this, target, this.loaders)
+        return create.call(this, target, path, this.loaders)
       }
     }
 
@@ -283,7 +283,7 @@ TypeMocker.defaultLoaders = [
   [Any, function() {
     return this.mock([String, Number, Boolean, Date, Promise, Array, Object])
   }],
-  function(target, next) {
+  function(target, path, next) {
     if (isNaN(target)) {
       return NaN
     }
@@ -311,7 +311,7 @@ function createRandom(f = 3) {
   return random
 }
 
-function create(target, loaders) {
+function create(target, path, loaders) {
   if (isArray(target)) {
     const protos = target
     const length = protos.length
@@ -319,7 +319,7 @@ function create(target, loaders) {
     const index = parseInt(Math.random() * 10, 10) % length
     const proto = protos[index]
 
-    return create.call(this, proto, loaders)
+    return create.call(this, proto, path, loaders)
   }
 
   for (let i = 0, len = loaders.length; i < len; i ++) {
@@ -329,7 +329,7 @@ function create(target, loaders) {
       const next = () => {
         notFound = true
       }
-      const output = item.call(this, target, next)
+      const output = item.call(this, target, path, next)
       if (!notFound) {
         return output
       }
@@ -341,10 +341,10 @@ function create(target, loaders) {
         if (excludes.includes(proto)) {
           continue
         }
-        return fn.call(this, target)
+        return fn.call(this, target, path)
       }
       else if (target === proto) {
-        return fn.call(this, target)
+        return fn.call(this, target, path)
       }
     }
   }
